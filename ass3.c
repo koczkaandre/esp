@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// ass2.c
+// ass3.c
 //
 // Caesar enryppting program 
 //
@@ -17,7 +17,7 @@
 int main(int argc, char const *argv[])
 {
   
-FILE *f;
+  FILE *f;
   char c;
   f=fopen(argv[1],"rt");
 
@@ -26,10 +26,6 @@ FILE *f;
     printf("%c",c);
   }
   fclose(f);
-
-
-
-
 
   return 0;
 }
