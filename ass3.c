@@ -17,19 +17,29 @@
 
 
 //char verify_config(char);
-char store(char);
-void verify_config(char*);
-
+void readInput(*char);
+//void verify_config(char*);
 
 
 int main(int argc, char const *argv[])
 {
-  int num = 0;
+ 
+ char argu= argv[1]
+
+ readInput(*argu);
+
+  return 0;
+}
+
+
+void readInput(char *argu ){
+
+ int num = 0;
   int index = 0;
   FILE *file;
   char line[64];
   char **buffer;
-  file=fopen(argv[1],"r");
+  file=fopen(*argu,"r");
 
   while(fgets(line, sizeof(line), file))
   {
@@ -51,36 +61,36 @@ int main(int argc, char const *argv[])
       index++;
     }
   
-  
+
   for(int x = 0;x<index;x++) printf("%s", buffer[x]);
   
 
-  verify_config(&buffer);
+  //verify_config(&buffer);
 
 
   free(buffer);
   fclose(file);
 
-  return 0;
 }
 
 
 
-void verify_config(char *buffer){
-int index = 0;
-int x=0;
-while((int)buffer[index] != EOF)
-{
-  while(&buffer[x] != '\n')
-  {
-    if (&(buffer)[x] >= "a" && &(buffer)[x] <= "z")
-    {
-      if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
-      {
-        printf("error");
-      }
-      x++;
-    }
-  index++;
-  }
-}
+
+// void verify_config(char *buffer){
+// int index = 0;
+// int x=0;
+// while((int)buffer[index] != EOF)
+// {
+//   while(&buffer[x] != '\n')
+//   {
+//     if (&(buffer)[x] >= "a" && &(buffer)[x] <= "z")
+//     {
+//       if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
+//       {
+//         printf("error");
+//       }
+//       x++;
+//     }
+//   index++;
+//   }
+// }
