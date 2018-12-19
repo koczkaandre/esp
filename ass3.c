@@ -18,7 +18,7 @@
 
 //char verify_config(char);
 char store(char);
-char verify_config(char**);
+void verify_config(char*);
 
 
 
@@ -52,8 +52,9 @@ int main(int argc, char const *argv[])
     }
   
   for(int x = 0;x<index;x++) printf("%s", buffer[x]);
+  
 
-verify_config(buffer);
+  verify_config(&buffer);
 
 
   free(buffer);
@@ -64,14 +65,14 @@ verify_config(buffer);
 
 
 
-char verify_config(char** buffer){
+void verify_config(char *buffer){
 int index = 0;
 int x=0;
 while((int)buffer[index] != EOF)
 {
-  while(buffer[index][x] != '\n')
+  while(&buffer[x] != '\n')
   {
-    if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
+    if (&(buffer)[x] >= "a" && &(buffer)[x] <= "z")
     {
     printf("error");
     }
