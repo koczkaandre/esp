@@ -64,20 +64,20 @@ verify_config(buffer);
 
 
 
-char verify_config(char** buffer){
-int index = 0;
-int x=0;
-while((int)buffer[index] != EOF)
+char verify_config(char** buffer)
 {
-  while(buffer[index][x] != '\n')
+  int index = 0;
+  int x=0;
+  while((int)buffer[index] != EOF)
   {
-    if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
+    while(buffer[index][x] != '\n')
     {
-    printf("error");
+      if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
+      {
+        printf("error");
+      }
+      x++;
     }
-    x++;
-  }
   index++;
-} 
-
+  }
 }
