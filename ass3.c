@@ -74,11 +74,12 @@ while((int)buffer[index] != EOF)
   {
     if (&(buffer)[x] >= "a" && &(buffer)[x] <= "z")
     {
-    printf("error");
+      if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
+      {
+        printf("error");
+      }
+      x++;
     }
-    x++;
-  }
   index++;
-} 
-
+  }
 }
