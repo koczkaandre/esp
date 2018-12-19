@@ -51,6 +51,7 @@ int main(int argc, char const *argv[])
       index++;
     }
   
+  
   for(int x = 0;x<index;x++) printf("%s", buffer[x]);
   
 
