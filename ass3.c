@@ -17,29 +17,25 @@
 
 
 //char verify_config(char);
-void readInput(*char);
+void readInput(const char *fileName);
 //void verify_config(char*);
 
 
-int main(int argc, char const *argv[])
+int main(int argc, const char *argv[])
 {
- 
- char argu= argv[1]
-
- readInput(*argu);
-
+  readInput(argv[1]);
   return 0;
 }
 
 
-void readInput(char *argu ){
+void readInput(const char *fileName){
 
- int num = 0;
+  int num = 0;
   int index = 0;
   FILE *file;
   char line[64];
   char **buffer;
-  file=fopen(*argu,"r");
+  file = fopen(fileName,"r");
 
   while(fgets(line, sizeof(line), file))
   {
@@ -60,12 +56,11 @@ void readInput(char *argu ){
       strcpy(buffer[index], line);
       index++;
     }
-  
 
-  for(int x = 0;x<index;x++) printf("%s", buffer[x]);
-  
-
-  //verify_config(&buffer);
+  for(int x = 0;x<num;x++)
+  {
+      printf("%s", buffer[x]);
+  }
 
 
   free(buffer);
@@ -73,24 +68,23 @@ void readInput(char *argu ){
 
 }
 
+void verify_config(const char* config, int lines)
+{
 
+}
 
-
-// void verify_config(char *buffer){
-// int index = 0;
-// int x=0;
-// while((int)buffer[index] != EOF)
-// {
-//   while(&buffer[x] != '\n')
-//   {
-//     if (&(buffer)[x] >= "a" && &(buffer)[x] <= "z")
-//     {
-//       if (buffer[index][x] >= "a" && buffer[index][x] <= "z")
-//       {
-//         printf("error");
-//       }
-//       x++;
-//     }
-//   index++;
-//   }
-// }
+void countWords(const char* line)
+{
+    int count = 0;
+    int i;
+    int len = strlen(line);
+    char prevChar;
+    if(len > 0)
+    {
+        prevChar = line[0];
+    }
+    for(i = 0; i <= len; i++)
+    {
+        
+    }
+}
