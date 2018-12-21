@@ -68,8 +68,31 @@ void readInput(const char *fileName){
 
 }
 
-void verify_config(const char* config, int lines)
+void verifyConfig(const char* config, int lines)
 {
+
+  char* str = *config;
+  int   i;
+  char  found_lower;
+
+  for (int i = 0; i<=lines, i++)
+  {
+    
+    for (int j = 0; str[j] != '\0'; j++)
+    {
+      found_lower = found_lower || (str[j] >= 'a' && str[j] <= 'z')
+    
+      if (found_lower)
+      {
+        printf("ERR false config");
+        break;
+
+      }
+  
+    }
+
+  }
+
 
 }
 
