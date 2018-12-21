@@ -62,6 +62,8 @@ void readInput(const char *fileName){
       printf("%s", buffer[x]);
   }
 
+  verifyConfig(buffer, lines);
+
 
   free(buffer);
   fclose(file);
@@ -77,7 +79,7 @@ void verifyConfig(const char* config, int lines)
 
   for (int i = 0; i<=lines, i++)
   {
-    
+
     for (int j = 0; str[j] != '\0'; j++)
     {
       found_lower = found_lower || (str[j] >= 'a' && str[j] <= 'z')
