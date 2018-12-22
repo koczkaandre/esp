@@ -18,7 +18,7 @@
 
 //char verify_config(char);
 void readInput(const char *fileName);
-int verifyConfig(const char** config, int lines);
+int verifyConfig(char** config, int lines);
 void removeSpaces(char* text);
 //void verify_config(char*);
 
@@ -72,12 +72,11 @@ void readInput(const char *fileName){
 
 }
 
-int verifyConfig(const char** config, int lines)
+int verifyConfig(char** config, int lines)
 {
   char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
   "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
   "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
-  
   char *verify = "1";
   char* line;
   for (int i = 0; i<=lines; i++)
