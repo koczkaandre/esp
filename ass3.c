@@ -64,7 +64,7 @@ void readInput(const char *fileName){
       printf("%s", buffer[x]);
   }
 
-  verifyConfig(buffer, index);
+  verifyConfig(buffer, num);
 
 
   free(buffer);
