@@ -18,6 +18,8 @@
 
 //char verify_config(char);
 void readInput(const char *fileName);
+int verifyConfig(const char** config, int lines);
+void removeSpaces(char* text)
 //void verify_config(char*);
 
 
@@ -70,46 +72,29 @@ void readInput(const char *fileName){
 
 }
 
-void verifyConfig(const char* config, int lines)
+int verifyConfig(const char** config, int lines)
 {
-
-  char* str = *config;
   int   i;
-  char  found_lower;
-
-  for (int i = 0; i<=lines, i++)
+  char* line;
+  for (int i = 0; i<=lines; i++)
   {
-
-    for (int j = 0; str[j] != '\0'; j++)
-    {
-      found_lower = found_lower || (str[j] >= 'a' && str[j] <= 'z')
+    line = config[i];
+    removeSpaces(line);
     
-      if (found_lower)
-      {
-        printf("ERR false config");
-        break;
-
-      }
-  
-    }
-
   }
 
 
 }
 
-void countWords(const char* line)
+void removeSpaces(char* text)
 {
-    int count = 0;
-    int i;
-    int len = strlen(line);
-    char prevChar;
-    if(len > 0)
+    char* currChar = text;
+    char* nextChar = text;
+    while(*nextChar != 0)
     {
-        prevChar = line[0];
+        *currChar = *nextChar++;
+        if(*currChar != ' ')
+            currChar++;
     }
-    for(i = 0; i <= len; i++)
-    {
-        
-    }
+    *currChar = 0;
 }
