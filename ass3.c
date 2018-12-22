@@ -79,7 +79,6 @@ int verifyConfig(const char** config, int lines)
   "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
   
   char *verify = "1";
-
   char* line;
   for (int i = 0; i<=lines; i++)
   {
@@ -87,27 +86,47 @@ int verifyConfig(const char** config, int lines)
     removeSpaces(line); 
   }
 
+  //test:
+   if (config[0]==config[1]){
+     printf("tru");
+   }
+
+
+
   for (int i = 0; i<lines; i++)
   {
-    for (int j = 0; j<lines; j++)
+    for (int j = 0; j<26; j++)
     {
-      if (config[i] == cards[j] && (int)config[i] != EOF)
-      {
-        printf("invalid");
-        return -1;
-      } 
-      else if(config[i] == cards[j])
-      {
-        realloc(cards[j],sizeof(verify)); 
+      if (config[i] == cards[j])
+      { 
         strcpy(cards[j], verify);
-      }      
+        
+      } 
+      else if(config[i] != cards[j] &&  (int)config[i] != EOF)
+      {
+       
+        printf("invalid");
 
-    }
+         //printf("%s, %s", config[1], cards[7]);
+        return -1;
+        
+      }
+      else if((int)config[i] == EOF)
+      {
+        printf("valid");
+        return -1;
+      }   
+        //realloc(cards[j],sizeof(verify)); 
+        
+      }   
+
     printf("Valid");
     return 1;
 
   }
+  
   return 1;
+
 }
 
 void removeSpaces(char* text)

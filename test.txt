@@ -1,3 +1,2 @@
-BLACK      6
-RED2
-BLACK     10
+RED    2
+RED 8
