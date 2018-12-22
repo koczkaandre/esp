@@ -19,7 +19,7 @@
 //char verify_config(char);
 void readInput(const char *fileName);
 int verifyConfig(const char** config, int lines);
-void removeSpaces(char* text)
+void removeSpaces(char* text);
 //void verify_config(char*);
 
 
@@ -35,7 +35,7 @@ void readInput(const char *fileName){
   int num = 0;
   int index = 0;
   FILE *file;
-  char line[64];
+  char line[255];
   char **buffer;
   file = fopen(fileName,"r");
 
@@ -64,7 +64,7 @@ void readInput(const char *fileName){
       printf("%s", buffer[x]);
   }
 
-  verifyConfig(buffer, lines);
+  verifyConfig(buffer, index);
 
 
   free(buffer);
@@ -74,16 +74,40 @@ void readInput(const char *fileName){
 
 int verifyConfig(const char** config, int lines)
 {
-  int   i;
+  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
+  "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
+  "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
+  
+  char *verify = "1";
+
   char* line;
   for (int i = 0; i<=lines; i++)
   {
     line = config[i];
-    removeSpaces(line);
-    
+    removeSpaces(line); 
   }
 
+  for (int i = 0; i<lines; i++)
+  {
+    for (int j = 0; j<lines; j++)
+    {
+      if (config[i] == cards[j] && (int)config[i] != EOF)
+      {
+        printf("invalid");
+        return -1;
+      } 
+      else if(config[i] == cards[j])
+      {
+        realloc(cards[j],sizeof(verify)); 
+        strcpy(cards[j], verify);
+      }      
 
+    }
+    printf("Valid");
+    return 1;
+
+  }
+  return 1;
 }
 
 void removeSpaces(char* text)

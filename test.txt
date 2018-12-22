@@ -1,2 +1,3 @@
-TEST
-Test
+BLACK      6
+RED2
+BLACK     10
