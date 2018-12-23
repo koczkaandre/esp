@@ -271,6 +271,7 @@ int addCardToStack(Card **stack, Card **card)
       if((*stack)->next!=(*stack))
       {
         stack = &((*stack)->next);
+
       }
     }
   while((*stack)->next);
