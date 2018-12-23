@@ -40,6 +40,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
 Card getCard(char* card, char** cards);
 int addCardToStack(Card **stack, Card **card);
 Card *allocCard(Card card);
+char convertCards(Card card);
 
 //------------------------------------------------------------------------------
 /// The main function, calls other functions
@@ -506,6 +507,17 @@ Card getCard(char* card, char** cards)
   return ncard;
 }
 
+
+//-----------------------------------------------------------------------------
+/// Function to prepare cards for printing
+///
+/// @param Card card struct containing card color and value
+///
+/// @return cardstring with the converted card string
+///
+//
+
+
 char convertCards(Card card)
 {
   
@@ -609,7 +621,5 @@ char convertCards(Card card)
     break;
   }
   return cardstring;
-
-
 
 }
