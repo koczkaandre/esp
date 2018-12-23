@@ -19,12 +19,27 @@
 //------------------------------------------------------------------------------
 /// Function prototypes
 //
+struct Card
+{
+  // Red == 1; Black == 2
+  int color;
+  // A,J,Q,K == 1,11,12,13
+  int value;
+  struct Card *next;
+};
 
-void readInput(const char *fileName);
+typedef struct Card Card;
+
+
+int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4);
 int verifyConfig(char** config, int lines);
 void removeSpaces(char* text);
 void truncAllLines(char** config, int lines);
 int containsCard(char* card, char** cards);
+int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4);
+Card getCard(char* card, char** cards);
+int addCardToStack(Card **stack, Card **card);
+Card *allocCard(Card card);
 
 //------------------------------------------------------------------------------
 /// The main function, calls other functions
@@ -34,7 +49,22 @@ int containsCard(char* card, char** cards);
 
 int main(int argc, const char *argv[])
 {
-  readInput(argv[1]);
+  Card *stack0;
+  Card *stack1;
+  Card *stack2;
+  Card *stack3;
+  Card *stack4;
+  Card *stack5;
+  Card *stack6;
+  if(argc == 2)
+  {
+    readInput(argv[1], &stack0, &stack1, &stack2, &stack3, &stack4);
+  }
+  else
+  {
+    printf("[ERR] Usage: ./ass3 [file-name]\n");
+    return 1;
+  }
   return 0;
 }
 
@@ -44,7 +74,7 @@ int main(int argc, const char *argv[])
 /// @param fileName char pointer to the name of the input file from argv
 //
 
-void readInput(const char *fileName)
+int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
 {
   int num = 0;
   int index = 0;
@@ -52,6 +82,11 @@ void readInput(const char *fileName)
   char line[255];
   char **buffer;
   file = fopen(fileName,"r");
+  if(file == 0)
+  {
+      printf("[ERR] Invalid file!\n");
+      return 3;
+  }
 
   while(fgets(line, sizeof(line), file))
   {
@@ -71,18 +106,21 @@ void readInput(const char *fileName)
     strcpy(buffer[index], line);
     index++;
   }
-
   for(int x = 0;x<num;x++)
   {
       printf("%s", buffer[x]);
   }
   truncAllLines(buffer, num);
-  verifyConfig(buffer, num);
-
-
+  if(verifyConfig(buffer, num) == -1)
+  {
+      printf("[ERR] Invalid file!\n");
+      free(buffer);
+      return 3;
+  }
+  buildStacks(buffer, num, stack0, stack1, stack2, stack3, stack4);
   free(buffer);
   fclose(file);
-
+  return 0;
 }
 
 
@@ -203,4 +241,188 @@ void removeSpaces(char* text)
         }
     }
     *currChar = 0;
+}
+
+int addCardToStack(Card **stack, Card **card)
+{
+  if(!(*stack))
+  {
+    (*card)->next = *(card);
+    (*stack) = (*card);
+    return 0;
+  }
+
+  do
+    {
+      if((*stack)->next == (*stack))
+      {
+        (*stack)->next = (*card);
+        return 0;
+      }
+      (*stack) = (*stack)->next;
+    }
+    while((*stack)->next != (*stack));
+
+  return -1;
+}
+
+Card *allocCard(Card card)
+{
+  Card *helpCard;
+  helpCard = (Card*)malloc(sizeof(Card));
+  helpCard->color = card.color;
+  helpCard->value = card.value;
+  return helpCard;
+}
+
+int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
+{
+  char* cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
+                     "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
+                     "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
+
+  Card help;
+  Card *pointhelp;
+
+  help = getCard(config[0], cards);
+  if((pointhelp = allocCard(help)) == 0)
+  {
+    printf("[ERR] Out of memory.\n");
+  }
+  addCardToStack(stack1, &pointhelp);
+
+  help = getCard(config[1], cards);
+  if((pointhelp = allocCard(help)) == 0)
+  {
+    printf("[ERR] Out of memory.\n");
+  }
+  addCardToStack(stack2, &pointhelp);
+
+  help = getCard(config[2], cards);
+  if((pointhelp = allocCard(help)) == 0)
+  {
+    printf("[ERR] Out of memory.\n");
+  }
+  addCardToStack(stack3, &pointhelp);
+
+  help = getCard(config[3], cards);
+  if((pointhelp = allocCard(help)) == 0)
+  {
+    printf("[ERR] Out of memory.\n");
+  }
+  addCardToStack(stack4, &pointhelp);
+  return 0;
+}
+
+Card getCard(char* card, char** cards)
+{
+  Card ncard;
+  switch (containsCard(card, cards))
+  {
+    case 0:
+      ncard.color = 1;
+      ncard.value = 1;
+      break;
+    case 1:
+      ncard.color = 1;
+      ncard.value = 2;
+      break;
+    case 2:
+      ncard.color = 1;
+      ncard.value = 3;
+      break;
+    case 3:
+      ncard.color = 1;
+      ncard.value = 4;
+      break;
+    case 4:
+      ncard.color = 1;
+      ncard.value = 5;
+      break;
+    case 5:
+      ncard.color = 1;
+      ncard.value = 6;
+      break;
+    case 6:
+      ncard.color = 1;
+      ncard.value = 7;
+      break;
+    case 7:
+      ncard.color = 1;
+      ncard.value = 8;
+      break;
+    case 8:
+      ncard.color = 1;
+      ncard.value = 9;
+      break;
+    case 9:
+      ncard.color = 1;
+      ncard.value = 10;
+      break;
+    case 10:
+      ncard.color = 1;
+      ncard.value = 11;
+      break;
+    case 11:
+      ncard.color = 1;
+      ncard.value = 12;
+      break;
+    case 12:
+      ncard.color = 1;
+      ncard.value = 13;
+      break;
+    case 13:
+      ncard.color = 2;
+      ncard.value = 1;
+      break;
+    case 14:
+      ncard.color = 2;
+      ncard.value = 2;
+      break;
+    case 15:
+      ncard.color = 2;
+      ncard.value = 3;
+      break;
+    case 16:
+      ncard.color = 2;
+      ncard.value = 4;
+      break;
+    case 17:
+      ncard.color = 2;
+      ncard.value = 5;
+      break;
+    case 18:
+      ncard.color = 2;
+      ncard.value = 6;
+      break;
+    case 19:
+      ncard.color = 2;
+      ncard.value = 7;
+      break;
+    case 20:
+      ncard.color = 2;
+      ncard.value = 8;
+      break;
+    case 21:
+      ncard.color = 2;
+      ncard.value = 9;
+      break;
+    case 22:
+      ncard.color = 2;
+      ncard.value = 10;
+      break;
+    case 23:
+      ncard.color = 2;
+      ncard.value = 11;
+      break;
+    case 24:
+      ncard.color = 2;
+      ncard.value = 12;
+      break;
+    case 25:
+      ncard.color = 2;
+      ncard.value = 13;
+      break;
+  }
+  return ncard;
 }
