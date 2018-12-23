@@ -252,6 +252,14 @@ void removeSpaces(char* text)
     *currChar = 0;
 }
 
+
+//-----------------------------------------------------------------------------
+/// Adds cards to the stack
+///
+/// @param Card stack double pointer
+/// @param Card card double pointer 
+//
+
 int addCardToStack(Card **stack, Card **card)
 {
   if(!(*stack))
@@ -287,6 +295,20 @@ Card *allocCard(Card card)
   helpCard->value = card.value;
   return helpCard;
 }
+
+
+//-----------------------------------------------------------------------------
+/// Builds the card statcks 
+///
+/// @param char double pointer to the config file 
+/// @param Card stack0 double pointer to stack 0
+/// @param Card stack1 double pointer to stack 1
+/// @param Card stack2 double pointer to stack 2
+/// @param Card stack3 double pointer to stack 3
+/// @param Card stack4 double pointer to stack 4
+///
+/// @return 0 if successful
+//
 
 int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
 {
@@ -359,6 +381,17 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
   }
   return 0;
 }
+
+
+//-----------------------------------------------------------------------------
+/// Function to determine a given card
+///
+/// @param char cards double pointer to all of the cards
+/// @param char card pointer 
+///
+/// @return ncard returns the card type
+//
+
 
 Card getCard(char* card, char** cards)
 {
