@@ -59,17 +59,34 @@ int main(int argc, const char *argv[])
   Card *stack4 = NULL;
   Card *stack5 = NULL;
   Card *stack6 = NULL;
+
+  int isExit = 0;
+  int error;
+
   if(argc == 2)
   {
-    readInput(argv[1], &stack0, &stack1, &stack2, &stack3, &stack4);
+    error = readInput(argv[1], &stack0, &stack1, &stack2, &stack3, &stack4);
+    if(error == 3)
+    {
+      return 3;
+    }
+
+    if(error == 2)
+    {
+      return 2;
+    }
   }
   else
   {
     printf("[ERR] Usage: ./ass3 [file-name]\n");
     return 1;
   }
-
   printGame(stack0, stack1, stack2, stack3, stack4, stack5, stack6);
+
+  while(!isExit)
+  {
+    
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -117,7 +134,10 @@ int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
       free(buffer);
       return 3;
   }
-  buildStacks(buffer, num, stack0, stack1, stack2, stack3, stack4);
+  if(buildStacks(buffer, num, stack0, stack1, stack2, stack3, stack4)==2)
+  {
+    return 2;
+  }
   free(buffer);
   fclose(file);
   return 0;
@@ -316,6 +336,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
       if(!(pointhelp = allocCard(help)))
       {
         printf("[ERR] Out of memory.\n");
+        return 2;
       }
       addCardToStack(stack1, &pointhelp);
     }
@@ -326,6 +347,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
       if(!(pointhelp = allocCard(help)))
       {
         printf("[ERR] Out of memory.\n");
+        return 2;
       }
       addCardToStack(stack2, &pointhelp);
     }
@@ -336,6 +358,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
       if(!(pointhelp = allocCard(help)))
       {
         printf("[ERR] Out of memory.\n");
+        return 2;
       }
       addCardToStack(stack3, &pointhelp);
     }
@@ -347,6 +370,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
       if(!(pointhelp = allocCard(help)))
       {
         printf("[ERR] Out of memory.\n");
+        return 2;
       }
       addCardToStack(stack4, &pointhelp);
     }
@@ -357,6 +381,7 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
       if(!(pointhelp = allocCard(help)))
       {
         printf("[ERR] Out of memory.\n");
+        return 2;
       }
       addCardToStack(stack0, &pointhelp);
     }
