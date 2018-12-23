@@ -61,6 +61,8 @@ int main(int argc, const char *argv[])
   Card *stack6 = NULL;
 
   int isExit = 0;
+  int isCommandExec = 0;
+  char input[255];
   int error;
 
   if(argc == 2)
@@ -81,12 +83,32 @@ int main(int argc, const char *argv[])
     printf("[ERR] Usage: ./ass3 [file-name]\n");
     return 1;
   }
+
   printGame(stack0, stack1, stack2, stack3, stack4, stack5, stack6);
 
   while(!isExit)
   {
-    
+    printf("esp> ");
+    scanf("%s", input);
+    removeSpaces(input);
+    if(strcmp(input, "help")==0)
+    {
+      printf("possible command:\n - move <color> <value> to <stacknumber>\n - help\n - exit\n");
+      isCommandExec = 1;
+    }
+    if(strcmp(input, "exit")==0)
+    {
+      isExit=1;
+      isCommandExec = 1;
+    }
+    if(isCommandExec == 0)
+    {
+      printf("[INFO] Invalid command!\n");
+    }
+    isCommandExec = 0;
   }
+
+  return 0;
 }
 
 //-----------------------------------------------------------------------------
