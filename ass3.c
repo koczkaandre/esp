@@ -264,8 +264,8 @@ int addCardToStack(Card **stack, Card **card)
     {
       if((*stack)->next == (*stack))
       {
-        (*card)->next == (*card);
-        (*stack)->next == (*card);
+        (*card)->next = (*card);
+        (*stack)->next = (*card);
         return 0;
       }
       if((*stack)->next!=(*stack))
