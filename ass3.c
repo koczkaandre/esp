@@ -16,13 +16,21 @@
 #include <string.h>
 
 
-//char verify_config(char);
+//------------------------------------------------------------------------------
+/// Function prototypes
+//
+
 void readInput(const char *fileName);
 int verifyConfig(char** config, int lines);
 void removeSpaces(char* text);
 void truncAllLines(char** config, int lines);
 int containsCard(char* card, char** cards);
 
+//------------------------------------------------------------------------------
+/// The main function, calls other functions
+///
+/// @return 0 if successful
+//
 
 int main(int argc, const char *argv[])
 {
@@ -30,9 +38,14 @@ int main(int argc, const char *argv[])
   return 0;
 }
 
+//-----------------------------------------------------------------------------
+/// reads the input textfile with the cards 
+///
+/// @param fileName char pointer to the name of the input file from argv
+//
 
-void readInput(const char *fileName){
-
+void readInput(const char *fileName)
+{
   int num = 0;
   int index = 0;
   FILE *file;
@@ -48,17 +61,16 @@ void readInput(const char *fileName){
 
   buffer = (char**)malloc(sizeof(line)*sizeof(char));
 
-
   for(int mem = 0;mem<num;mem++)
   {
     buffer[mem] = (char*)malloc(sizeof(line)*sizeof(char));
   }
 
   while(fgets(line, sizeof(line), file))
-    {
-      strcpy(buffer[index], line);
-      index++;
-    }
+  {
+    strcpy(buffer[index], line);
+    index++;
+  }
 
   for(int x = 0;x<num;x++)
   {
@@ -73,6 +85,16 @@ void readInput(const char *fileName){
 
 }
 
+
+//-----------------------------------------------------------------------------
+/// Verifies the config file
+///
+/// @param config char double pointer to the single elements of the config file
+/// @param lines integer for the sum of lines in the config file
+/// @return -1 if config is invalid
+/// @return 0 if the function ran sucessfully 
+//
+
 int verifyConfig(char** config, int lines)
 {
   char* cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
@@ -83,15 +105,15 @@ int verifyConfig(char** config, int lines)
 
     for(int i = 0; i < lines; i++)
     {
-        if(containsCard(config[i], cards)==-1)
-        {
-            printf("ERROR");
-            return -1;
-        }
-        if(containsCard(config[i], cards)!=-2)
-        {
-            containedcards[containsCard(config[i], cards)] += 1;
-        }
+      if(containsCard(config[i], cards)==-1)
+      {
+        printf("ERROR");
+        return -1;
+      }
+      if(containsCard(config[i], cards)!=-2)
+      {
+        containedcards[containsCard(config[i], cards)] += 1;
+      }
     }
 
     for(int i = 0; i < 26; i++)
@@ -114,21 +136,40 @@ int verifyConfig(char** config, int lines)
 
 }
 
+//-----------------------------------------------------------------------------
+/// Verifies if a given card is valid 
+///
+/// @param card char pointer to a given card
+/// @param cards char double pointer for all of the cards
+/// @return -2
+/// @return i
+/// @return -1
+//
+
 int containsCard(char* card, char** cards)
 {
-    if(strcmp(card, "")==0)
+  if(strcmp(card, "")==0)
+  {
+    return -2;
+  }
+  for(int i = 0; i < 26; i++)
+  {
+    if(strcmp(card, cards[i])==0)
     {
-        return -2;
+      return i;
     }
-    for(int i = 0; i < 26; i++)
-    {
-        if(strcmp(card, cards[i])==0)
-        {
-            return i;
-        }
-    }
-    return -1;
+  }
+  return -1;
 }
+
+
+//-----------------------------------------------------------------------------
+/// Calls removeSpaces function for every single line in the config file
+///
+/// @param lines integer to get the sum of lines in the config file
+/// @param config char double pointer for all the elements in the config
+// 
+
 
 void truncAllLines(char** config, int lines)
 {
@@ -137,6 +178,13 @@ void truncAllLines(char** config, int lines)
         removeSpaces(config[i]);
     }
 }
+
+//-----------------------------------------------------------------------------
+/// Removes whitespaces from the lines in the config file
+///
+/// @param text char pointer to the text that needs the whitespaces 
+//  to be removed
+//
 
 void removeSpaces(char* text)
 {
