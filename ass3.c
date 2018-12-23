@@ -259,9 +259,9 @@ int addCardToStack(Card **stack, Card **card)
         (*stack)->next = (*card);
         return 0;
       }
-      (*stack) = (*stack)->next;
+      stack = &((*stack)->next);
     }
-    while((*stack)->next != (*stack));
+    while((*stack)->next);
 
   return -1;
 }
@@ -283,34 +283,78 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
 
   Card help;
   Card *pointhelp;
-
-  help = getCard(config[0], cards);
-  if((pointhelp = allocCard(help)) == 0)
+  int helpCount = 0;
+  for(int i = 0; i < lines; i++)
   {
-    printf("[ERR] Out of memory.\n");
-  }
-  addCardToStack(stack1, &pointhelp);
+    if(containsCard(config[i], cards)==-2)
+    {
+      continue;
+    }
 
-  help = getCard(config[1], cards);
-  if((pointhelp = allocCard(help)) == 0)
-  {
-    printf("[ERR] Out of memory.\n");
-  }
-  addCardToStack(stack2, &pointhelp);
+    if(helpCount == 0)
+    {
+      help = getCard(config[i], cards);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+      addCardToStack(stack1, &pointhelp);
+    }
 
-  help = getCard(config[2], cards);
-  if((pointhelp = allocCard(help)) == 0)
-  {
-    printf("[ERR] Out of memory.\n");
-  }
-  addCardToStack(stack3, &pointhelp);
+    if((helpCount == 1)||(helpCount == 4))
+    {
+      help = getCard(config[i], cards);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+      addCardToStack(stack2, &pointhelp);
+    }
 
-  help = getCard(config[3], cards);
-  if((pointhelp = allocCard(help)) == 0)
-  {
-    printf("[ERR] Out of memory.\n");
+    if((helpCount == 5)||(helpCount==7))
+    {
+      help = getCard(config[i], cards);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+      addCardToStack(stack3, &pointhelp);
+    }
+
+    if(helpCount == 2)
+    {
+      help = getCard(config[i], cards);
+      printf("%d", help.value);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+
+    }
+
+    if((helpCount == 3)||(helpCount == 6)||(helpCount==8)||(helpCount == 9))
+    {
+      help = getCard(config[i], cards);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+      addCardToStack(stack3, &pointhelp);
+    }
+
+    if(helpCount > 9)
+    {
+      help = getCard(config[i], cards);
+      if((pointhelp = allocCard(help)))
+      {
+        printf("[ERR] Out of memory.\n");
+      }
+      addCardToStack(stack0, &pointhelp);
+    }
+
+    helpCount++;
   }
-  addCardToStack(stack4, &pointhelp);
+
   return 0;
 }
 
