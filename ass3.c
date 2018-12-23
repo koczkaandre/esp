@@ -394,7 +394,8 @@ int buildStacks(char **config, int lines, Card **stack0, Card **stack1,
   Card help;
   Card *pointhelp;
   int helpCount = 0;
-  for (int i = 0; i < lines; i++)
+  int i = lines-1;
+  while(helpCount <= 9)
   {
     if (containsCard(config[i], cards) == -2)
     {
@@ -457,6 +458,18 @@ int buildStacks(char **config, int lines, Card **stack0, Card **stack1,
       addCardToStack(stack0, &pointhelp);
     }
     helpCount++;
+    i--;
+  }
+
+  for(int helpind = 0; helpind < i; helpind++)
+  {
+    help = getCard(config[i], cards);
+    if (!(pointhelp = allocCard(help)))
+    {
+      printf("[ERR] Out of memory.\n");
+      return 2;
+    }
+    addCardToStack(stack0, &pointhelp);
   }
   return 0;
 }
