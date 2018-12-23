@@ -22,7 +22,6 @@ int verifyConfig(char** config, int lines);
 void removeSpaces(char* text);
 void truncAllLines(char** config, int lines);
 int containsCard(char* card, char** cards);
-//void verify_config(char*);
 
 
 int main(int argc, const char *argv[])
