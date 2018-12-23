@@ -20,6 +20,8 @@
 void readInput(const char *fileName);
 int verifyConfig(char** config, int lines);
 void removeSpaces(char* text);
+void truncAllLines(char** config, int lines);
+int containsCard(char* card, char** cards);
 //void verify_config(char*);
 
 
@@ -63,7 +65,7 @@ void readInput(const char *fileName){
   {
       printf("%s", buffer[x]);
   }
-
+  truncAllLines(buffer, num);
   verifyConfig(buffer, num);
 
 
@@ -74,58 +76,67 @@ void readInput(const char *fileName){
 
 int verifyConfig(char** config, int lines)
 {
-  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
+  char* cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
   "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
   "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
-  char *verify = "1";
-  char* line;
-  for (int i = 0; i<=lines; i++)
-  {
-    line = config[i];
-    removeSpaces(line); 
-  }
 
-  //test:
-   if (config[0]==config[1]){
-     printf("tru");
-   }
+  int containedcards[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-
-
-  for (int i = 0; i<lines; i++)
-  {
-    for (int j = 0; j<26; j++)
+    for(int i = 0; i < lines; i++)
     {
-      if (config[i] == cards[j])
-      { 
-        strcpy(cards[j], verify);
-        
-      } 
-      else if(config[i] != cards[j] &&  (int)config[i] != EOF)
-      {
-       
-        printf("invalid");
+        if(containsCard(config[i], cards)==-1)
+        {
+            printf("ERROR");
+            return -1;
+        }
+        if(containsCard(config[i], cards)!=-2)
+        {
+            containedcards[containsCard(config[i], cards)] += 1;
+        }
+    }
 
-         //printf("%s, %s", config[1], cards[7]);
-        return -1;
-        
-      }
-      else if((int)config[i] == EOF)
-      {
-        printf("valid");
-        return -1;
-      }   
-        //realloc(cards[j],sizeof(verify)); 
-        
-      }   
+    for(int i = 0; i < 26; i++)
+    {
+            printf("%d", containedcards[i]);
 
-    printf("Valid");
-    return 1;
+    }
 
-  }
-  
-  return 1;
+    for(int i = 0; i < 26; i++)
+    {
+        if(containedcards[i]!=1)
+        {
+            printf("ERROR");
+            return -1;
+        }
+    }
 
+
+  return 0;
+
+}
+
+int containsCard(char* card, char** cards)
+{
+    if(strcmp(card, "")==0)
+    {
+        return -2;
+    }
+    for(int i = 0; i < 26; i++)
+    {
+        if(strcmp(card, cards[i])==0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void truncAllLines(char** config, int lines)
+{
+    for(int i = 0; i < lines; i++)
+    {
+        removeSpaces(config[i]);
+    }
 }
 
 void removeSpaces(char* text)
@@ -136,7 +147,13 @@ void removeSpaces(char* text)
     {
         *currChar = *nextChar++;
         if(*currChar != ' ')
+        {
+            if(*currChar == '\n')
+            {
+                *currChar = 0;
+            }
             currChar++;
+        }
     }
     *currChar = 0;
 }
