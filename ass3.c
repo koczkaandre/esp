@@ -505,3 +505,111 @@ Card getCard(char* card, char** cards)
   }
   return ncard;
 }
+
+char convertCards(Card card)
+{
+  
+  char* cards_converted[26] = {"RA", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
+                     "R10", "RJ", "RQ", "RK", "BA", "B2", "B3", "B4", "B5",
+                     "B6", "B7", "B8", "B9", "B10", "BJ", "BQ", "BK"};
+  
+  char* cardstring;
+  switch (card.color)
+  {
+    case 1:
+      
+      switch (card.value)
+      {
+        case 1:
+        cardstring = cards_converted[0];
+        break;
+        case 2:
+        cardstring = cards_converted[1];
+        break;
+        case 3:
+        cardstring = cards_converted[2];
+        break;
+        case 4:
+        cardstring = cards_converted[3];
+        break;
+        case 5:
+        cardstring = cards_converted[4];
+        break;
+        case 6:
+        cardstring = cards_converted[5];
+        break;
+        case 7:
+        cardstring = cards_converted[6];
+        break;
+        case 8:
+        cardstring = cards_converted[7];
+        break;       
+        case 9:
+        cardstring = cards_converted[8];
+        break;
+        case 10:
+        cardstring = cards_converted[9];
+        break;
+        case 11:
+        cardstring = cards_converted[10];
+        break;
+        case 12:
+        cardstring = cards_converted[11];
+        break;
+        case 13:
+        cardstring = cards_converted[12];
+        break;
+      }
+
+
+      break;
+    case 2:
+    switch (card.value)
+    {
+        case 1:
+        cardstring = cards_converted[13];
+        break;
+        case 2:
+        cardstring = cards_converted[14];
+        break;
+        case 3:
+        cardstring = cards_converted[15];
+        break;
+        case 4:
+        cardstring = cards_converted[16];
+        break;
+        case 5:
+        cardstring = cards_converted[17];
+        break;
+        case 6:
+        cardstring = cards_converted[18];
+        break;
+        case 7:
+        cardstring = cards_converted[19];
+        break;
+        case 8:
+        cardstring = cards_converted[20];
+        break;       
+        case 9:
+        cardstring = cards_converted[21];
+        break;
+        case 10:
+        cardstring = cards_converted[22];
+        break;
+        case 11:
+        cardstring = cards_converted[23];
+        break;
+        case 12:
+        cardstring = cards_converted[24];
+        break;
+        case 13:
+        cardstring = cards_converted[25];
+        break;
+    } 
+    break;
+  }
+  return cardstring;
+
+
+
+}
