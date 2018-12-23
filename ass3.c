@@ -43,6 +43,7 @@ Card *allocCard(Card card);
 char *convertCards(Card card);
 void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6);
 int getStackLen(Card *stack);
+void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6);
 
 //------------------------------------------------------------------------------
 /// The main function, calls other functions
@@ -107,6 +108,8 @@ int main(int argc, const char *argv[])
     }
     isCommandExec = 0;
   }
+
+  freeStacks(stack0, stack1, stack2, stack3, stack4, stack5, stack6);
 
   return 0;
 }
@@ -775,5 +778,110 @@ void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *sta
     stacklen5--;
     stacklen6--;
   }
+}
 
+void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
+{
+  int stacklen0 = getStackLen(stack0);
+  int stacklen1 = getStackLen(stack1);
+  int stacklen2 = getStackLen(stack2);
+  int stacklen3 = getStackLen(stack3);
+  int stacklen4 = getStackLen(stack4);
+  int stacklen5 = getStackLen(stack5);
+  int stacklen6 = getStackLen(stack6);
+
+
+  Card *cards[100];
+  int index = 0;
+
+  while((stacklen0 > 0)||(stacklen1 > 0)||(stacklen2 > 0)||(stacklen3 > 0)||(stacklen4 > 0)||(stacklen5 > 0)||(stacklen6 > 0))
+  {
+    if(stacklen0 > 0)
+    {
+      cards[index] = stack0;
+      if(stack0)
+      {
+        stack0 = stack0->next;
+        index++;
+      }
+    }
+
+
+    if(stacklen1 > 0)
+    {
+      cards[index] = stack1;
+      if(stack1)
+      {
+        stack1 = stack1->next;
+        index++;
+      }
+    }
+
+
+    if(stacklen2 > 0)
+    {
+      cards[index] = stack2;
+      if(stack2)
+      {
+        stack2 = stack2->next;
+        index++;
+      }
+    }
+
+    if(stacklen3 > 0)
+    {
+      cards[index] = stack3;
+      if(stack3)
+      {
+        stack3 = stack3->next;
+        index++;
+      }
+    }
+
+    if(stacklen4 > 0)
+    {
+      cards[index] = stack4;
+      if(stack4)
+      {
+        stack4 = stack4->next;
+        index++;
+      }
+    }
+
+    if(stacklen5 > 0)
+    {
+      cards[index] = stack5;
+      if(stack5)
+      {
+        stack5 = stack5->next;
+        index++;
+      }
+    }
+
+    if(stacklen6 > 0)
+    {
+      cards[index] = stack6;
+      if(stack6)
+      {
+        stack6 = stack6->next;
+        index++;
+      }
+    }
+
+
+    stacklen0--;
+    stacklen1--;
+    stacklen2--;
+    stacklen3--;
+    stacklen4--;
+    stacklen5--;
+    stacklen6--;
+  }
+  for(index = 0; index < 26; index++)
+  {
+    if(cards[index])
+    {
+      free(cards[index]);
+    }
+  }
 }
