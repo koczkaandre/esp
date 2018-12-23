@@ -794,7 +794,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
 
     if (stacklen1 > 0)
     {
-      printf("%-5s", convertCards(*stack1));
+      printf(" %-4s", convertCards(*stack1));
       stack1 = stack1->next;
     } else
     {
@@ -803,7 +803,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
     printf("|");
     if (stacklen2 > 0)
     {
-      printf("%-5s", convertCards(*stack2));
+      printf(" %-4s", convertCards(*stack2));
       stack2 = stack2->next;
     } else
     {
@@ -813,7 +813,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
 
     if (stacklen3 > 0)
     {
-      printf("%-5s", convertCards(*stack3));
+      printf(" %-4s", convertCards(*stack3));
       stack3 = stack3->next;
     } else
     {
@@ -823,7 +823,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
 
     if (stacklen4 > 0)
     {
-      printf("%-5s", convertCards(*stack4));
+      printf(" %-4s", convertCards(*stack4));
       stack4 = stack4->next;
     } else
     {
@@ -833,7 +833,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
 
     if (stacklen5 > 0)
     {
-      printf("%-5s", convertCards(*stack5));
+      printf(" %-4s", convertCards(*stack5));
       stack5 = stack5->next;
     } else
     {
@@ -842,7 +842,7 @@ printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
     printf("|");
     if (stacklen6 > 0)
     {
-      printf("%-5s", convertCards(*stack6));
+      printf(" %-4s", convertCards(*stack6));
       stack6 = stack6->next;
     } else
     {
