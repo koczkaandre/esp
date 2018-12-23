@@ -15,20 +15,28 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 //------------------------------------------------------------------------------
-/// Function prototypes
+/// Card linked list node
 //
+
 struct Card
 {
   // Red == 1; Black == 2
+  
   int color;
+  
   // A,J,Q,K == 1,11,12,13
+
   int value;
   struct Card *next;
 };
 
 typedef struct Card Card;
 
+//------------------------------------------------------------------------------
+/// Function prototypes
+//
 
 int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4);
 
@@ -128,6 +136,15 @@ int main(int argc, const char *argv[])
 /// reads the input textfile with the cards 
 ///
 /// @param fileName char pointer to the name of the input file from argv
+/// @param Card stack0 double pointer to stack 0
+/// @param Card stack1 double pointer to stack 1
+/// @param Card stack2 double pointer to stack 2
+/// @param Card stack3 double pointer to stack 3
+/// @param Card stack4 double pointer to stack 4
+///
+/// @return 0 if succefful
+/// @return 2 if out of memory
+/// @return 3 if file is invalid
 //
 
 int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
@@ -188,17 +205,21 @@ int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
 ///
 /// @param config char double pointer to the single elements of the config file
 /// @param lines integer for the sum of lines in the config file
+///
 /// @return -1 if config is invalid
 /// @return 0 if the function ran sucessfully 
 //
 
 int verifyConfig(char **config, int lines)
 {
-  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
-                     "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
-                     "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
+  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7",
+                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK", 
+                     "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
+                     "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10",
+                     "BLACKJ", "BLACKQ", "BLACKK"};
 
-  int containedcards[26] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int containedcards[26] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0};
 
   for (int i = 0; i < lines; i++)
   {
@@ -355,9 +376,11 @@ Card *allocCard(Card card)
 
 int buildStacks(char **config, int lines, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
 {
-  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7", "RED8", "RED9",
-                     "RED10", "REDJ", "REDQ", "REDK", "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
-                     "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10", "BLACKJ", "BLACKQ", "BLACKK"};
+  char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7",
+                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK", 
+                     "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
+                     "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10",
+                     "BLACKJ", "BLACKQ", "BLACKK"};
 
   Card help;
   Card *pointhelp;
@@ -402,7 +425,8 @@ int buildStacks(char **config, int lines, Card **stack0, Card **stack1, Card **s
     }
 
 
-    if ((helpCount == 3) || (helpCount == 6) || (helpCount == 8) || (helpCount == 9))
+    if ((helpCount == 3) || (helpCount == 6) || (helpCount == 8) ||
+    (helpCount == 9))
     {
       help = getCard(config[i], cards);
       if (!(pointhelp = allocCard(help)))
@@ -566,9 +590,10 @@ Card getCard(char *card, char **cards)
 char *convertCards(Card card)
 {
 
-  char *cards_converted[26] = {"RA", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
-                               "R10", "RJ", "RQ", "RK", "BA", "B2", "B3", "B4", "B5",
-                               "B6", "B7", "B8", "B9", "B10", "BJ", "BQ", "BK"};
+  char *cards_converted[26] = {"RA", "R2", "R3", "R4", "R5", "R6", "R7", "R8",
+                               "R9", "R10", "RJ", "RQ", "RK", "BA", "B2", "B3",
+                               "B4", "B5","B6", "B7", "B8", "B9", "B10", 
+                               "BJ", "BQ", "BK"};
 
   char *cardstring;
   switch (card.color)
@@ -668,6 +693,16 @@ char *convertCards(Card card)
   return cardstring;
 }
 
+
+//-----------------------------------------------------------------------------
+/// Function to check the length of stack
+///
+/// @param Card stack pointer to a given stack
+///
+/// @return count, the length of the stack 
+///
+//
+
 int getStackLen(Card *stack)
 {
   int count = 0;
@@ -687,6 +722,19 @@ int getStackLen(Card *stack)
 
   return count;
 }
+
+
+//-----------------------------------------------------------------------------
+/// Prints the game 
+///
+/// @param Card stack0 double pointer to stack 0
+/// @param Card stack1 double pointer to stack 1
+/// @param Card stack2 double pointer to stack 2
+/// @param Card stack3 double pointer to stack 3
+/// @param Card stack4 double pointer to stack 4
+/// @param Card stack4 double pointer to stack 5
+/// @param Card stack4 double pointer to stack 6
+//
 
 void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
 {
@@ -785,6 +833,20 @@ void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *sta
     stacklen6--;
   }
 }
+
+
+//-----------------------------------------------------------------------------
+/// Frees al the stacks to avoid memory leaks 
+///
+/// @param Card stack0 double pointer to stack 0
+/// @param Card stack1 double pointer to stack 1
+/// @param Card stack2 double pointer to stack 2
+/// @param Card stack3 double pointer to stack 3
+/// @param Card stack4 double pointer to stack 4
+/// @param Card stack4 double pointer to stack 5
+/// @param Card stack4 double pointer to stack 6
+//
+
 
 void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
 {
