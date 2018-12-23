@@ -23,9 +23,9 @@
 struct Card
 {
   // Red == 1; Black == 2
-  
+
   int color;
-  
+
   // A,J,Q,K == 1,11,12,13
 
   int value;
@@ -38,7 +38,8 @@ typedef struct Card Card;
 /// Function prototypes
 //
 
-int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4);
+int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
+              Card **stack3, Card **stack4);
 
 int verifyConfig(char **config, int lines);
 
@@ -48,7 +49,8 @@ void truncAllLines(char **config, int lines);
 
 int containsCard(char *card, char **cards);
 
-int buildStacks(char **config, int lines, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4);
+int buildStacks(char **config, int lines, Card **stack0, Card **stack1,
+                Card **stack2, Card **stack3, Card **stack4);
 
 Card getCard(char *card, char **cards);
 
@@ -58,11 +60,15 @@ Card *allocCard(Card card);
 
 char *convertCards(Card card);
 
-void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6);
+void
+printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
+          Card *stack5, Card *stack6);
 
 int getStackLen(Card *stack);
 
-void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6);
+void
+freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
+           Card *stack5, Card *stack6);
 
 //------------------------------------------------------------------------------
 /// The main function, calls other functions
@@ -112,7 +118,8 @@ int main(int argc, const char *argv[])
     removeSpaces(input);
     if (strcmp(input, "help") == 0)
     {
-      printf("possible command:\n - move <color> <value> to <stacknumber>\n - help\n - exit\n");
+      printf("possible command:\n - move <color> <value>");
+      printf(" to <stacknumber>\n - help\n - exit\n");
       isCommandExec = 1;
     }
     if (strcmp(input, "exit") == 0)
@@ -147,7 +154,8 @@ int main(int argc, const char *argv[])
 /// @return 3 if file is invalid
 //
 
-int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
+int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
+              Card **stack3, Card **stack4)
 {
   int num = 0;
   int index = 0;
@@ -213,7 +221,7 @@ int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
 int verifyConfig(char **config, int lines)
 {
   char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7",
-                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK", 
+                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK",
                      "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
                      "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10",
                      "BLACKJ", "BLACKQ", "BLACKK"};
@@ -374,10 +382,11 @@ Card *allocCard(Card card)
 /// @return 0 if successful
 //
 
-int buildStacks(char **config, int lines, Card **stack0, Card **stack1, Card **stack2, Card **stack3, Card **stack4)
+int buildStacks(char **config, int lines, Card **stack0, Card **stack1,
+                Card **stack2, Card **stack3, Card **stack4)
 {
   char *cards[26] = {"REDA", "RED2", "RED3", "RED4", "RED5", "RED6", "RED7",
-                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK", 
+                     "RED8", "RED9", "RED10", "REDJ", "REDQ", "REDK",
                      "BLACKA", "BLACK2", "BLACK3", "BLACK4", "BLACK5",
                      "BLACK6", "BLACK7", "BLACK8", "BLACK9", "BLACK10",
                      "BLACKJ", "BLACKQ", "BLACKK"};
@@ -426,7 +435,7 @@ int buildStacks(char **config, int lines, Card **stack0, Card **stack1, Card **s
 
 
     if ((helpCount == 3) || (helpCount == 6) || (helpCount == 8) ||
-    (helpCount == 9))
+        (helpCount == 9))
     {
       help = getCard(config[i], cards);
       if (!(pointhelp = allocCard(help)))
@@ -592,7 +601,7 @@ char *convertCards(Card card)
 
   char *cards_converted[26] = {"RA", "R2", "R3", "R4", "R5", "R6", "R7", "R8",
                                "R9", "R10", "RJ", "RQ", "RK", "BA", "B2", "B3",
-                               "B4", "B5","B6", "B7", "B8", "B9", "B10", 
+                               "B4", "B5", "B6", "B7", "B8", "B9", "B10",
                                "BJ", "BQ", "BK"};
 
   char *cardstring;
@@ -736,7 +745,9 @@ int getStackLen(Card *stack)
 /// @param Card stack4 double pointer to stack 6
 //
 
-void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
+void
+printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
+          Card *stack5, Card *stack6)
 {
   int stacklen0 = getStackLen(stack0);
   int stacklen1 = getStackLen(stack1);
@@ -746,8 +757,10 @@ void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *sta
   int stacklen5 = getStackLen(stack5);
   int stacklen6 = getStackLen(stack6);
 
-  printf("0   | 1   | 2   | 3   | 4   | DEP | DEP\n---------------------------------------\n");
-  while ((stacklen0 > 0) || (stacklen1 > 0) || (stacklen2 > 0) || (stacklen3 > 0) || (stacklen4 > 0) ||
+  printf("0   | 1   | 2   | 3   | 4   ");
+  printf("| DEP | DEP\n---------------------------------------\n");
+  while ((stacklen0 > 0) || (stacklen1 > 0) || (stacklen2 > 0) ||
+         (stacklen3 > 0) || (stacklen4 > 0) ||
          (stacklen5 > 0) || (stacklen6 > 0))
   {
     if (stacklen0 > 0)
@@ -848,7 +861,9 @@ void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *sta
 //
 
 
-void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
+void
+freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4,
+           Card *stack5, Card *stack6)
 {
   int stacklen0 = getStackLen(stack0);
   int stacklen1 = getStackLen(stack1);
@@ -862,7 +877,8 @@ void freeStacks(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *st
   Card *cards[100];
   int index = 0;
 
-  while ((stacklen0 > 0) || (stacklen1 > 0) || (stacklen2 > 0) || (stacklen3 > 0) || (stacklen4 > 0) ||
+  while ((stacklen0 > 0) || (stacklen1 > 0) || (stacklen2 > 0) ||
+         (stacklen3 > 0) || (stacklen4 > 0) ||
          (stacklen5 > 0) || (stacklen6 > 0))
   {
     if (stacklen0 > 0)
