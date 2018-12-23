@@ -40,7 +40,9 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
 Card getCard(char* card, char** cards);
 int addCardToStack(Card **stack, Card **card);
 Card *allocCard(Card card);
-char convertCards(Card card);
+char *convertCards(Card card);
+void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6);
+int getStackLen(Card *stack);
 
 //------------------------------------------------------------------------------
 /// The main function, calls other functions
@@ -50,13 +52,13 @@ char convertCards(Card card);
 
 int main(int argc, const char *argv[])
 {
-  Card *stack0;
-  Card *stack1;
-  Card *stack2;
-  Card *stack3;
-  Card *stack4;
-  Card *stack5;
-  Card *stack6;
+  Card *stack0 = NULL;
+  Card *stack1 = NULL;
+  Card *stack2 = NULL;
+  Card *stack3 = NULL;
+  Card *stack4 = NULL;
+  Card *stack5 = NULL;
+  Card *stack6 = NULL;
   if(argc == 2)
   {
     readInput(argv[1], &stack0, &stack1, &stack2, &stack3, &stack4);
@@ -66,16 +68,8 @@ int main(int argc, const char *argv[])
     printf("[ERR] Usage: ./ass3 [file-name]\n");
     return 1;
   }
-  printf("\n");
-  printf("value%d\n", stack0);
-  printf("value%d\n", stack0->next);
-  do
-  {
-    printf("value%d\n", stack0->value);
-    stack0 = stack0->next;
-  }
-  while(stack0->next!=stack0);
-  return 0;
+
+  printGame(stack0, stack1, stack2, stack3, stack4, stack5, stack6);
 }
 
 //-----------------------------------------------------------------------------
@@ -115,10 +109,6 @@ int readInput(const char *fileName, Card **stack0, Card **stack1, Card **stack2,
   {
     strcpy(buffer[index], line);
     index++;
-  }
-  for(int x = 0;x<num;x++)
-  {
-      printf("%s", buffer[x]);
   }
   truncAllLines(buffer, num);
   if(verifyConfig(buffer, num) == -1)
@@ -162,12 +152,6 @@ int verifyConfig(char** config, int lines)
       {
         containedcards[containsCard(config[i], cards)] += 1;
       }
-    }
-
-    for(int i = 0; i < 26; i++)
-    {
-            printf("%d", containedcards[i]);
-
     }
 
     for(int i = 0; i < 26; i++)
@@ -320,7 +304,6 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
   Card help;
   Card *pointhelp;
   int helpCount = 0;
-  printf("\n");
   for(int i = 0; i < lines; i++)
   {
     if(containsCard(config[i], cards)==-2)
@@ -370,7 +353,6 @@ int buildStacks(char** config, int lines,  Card **stack0, Card **stack1, Card **
 
     if(helpCount > 9)
     {
-      printf("hallo");
       help = getCard(config[i], cards);
       if(!(pointhelp = allocCard(help)))
       {
@@ -518,7 +500,7 @@ Card getCard(char* card, char** cards)
 //
 
 
-char convertCards(Card card)
+char *convertCards(Card card)
 {
   
   char* cards_converted[26] = {"RA", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
@@ -621,5 +603,130 @@ char convertCards(Card card)
     break;
   }
   return cardstring;
+}
+
+int getStackLen(Card *stack)
+{
+  int count = 0;
+  if(!stack)
+  {
+    return count;
+  }
+
+  count++;
+
+  while(stack->next != stack)
+  {
+    count++;
+    stack = stack->next;
+  }
+
+
+  return count;
+}
+
+void printGame(Card *stack0, Card *stack1, Card *stack2, Card *stack3, Card *stack4, Card *stack5, Card *stack6)
+{
+  int stacklen0 = getStackLen(stack0);
+  int stacklen1 = getStackLen(stack1);
+  int stacklen2 = getStackLen(stack2);
+  int stacklen3 = getStackLen(stack3);
+  int stacklen4 = getStackLen(stack4);
+  int stacklen5 = getStackLen(stack5);
+  int stacklen6 = getStackLen(stack6);
+
+  printf("0   | 1   | 2   | 3   | 4   | DEP | DEP\n---------------------------------------\n");
+  while((stacklen0 > 0)||(stacklen1 > 0)||(stacklen2 > 0)||(stacklen3 > 0)||(stacklen4 > 0)||(stacklen5 > 0)||(stacklen6 > 0))
+  {
+    if(stacklen0 > 0)
+    {
+      if(stacklen0 > 1)
+      {
+        printf("X   ");
+      }
+      else
+      {
+        printf("%-4s",convertCards(*stack0));
+      }
+      stack0 = stack0->next;
+    }
+    else
+    {
+      printf("    ");
+    }
+    printf("|");
+
+    if(stacklen1 > 0)
+    {
+      printf("%-5s",convertCards(*stack1));
+      stack1 = stack1->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+    printf("|");
+    if(stacklen2 > 0)
+    {
+      printf("%-5s",convertCards(*stack2));
+      stack2 = stack2->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+    printf("|");
+
+    if(stacklen3 > 0)
+    {
+      printf("%-5s",convertCards(*stack3));
+      stack3 = stack3->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+    printf("|");
+
+    if(stacklen4 > 0)
+    {
+      printf("%-5s",convertCards(*stack4));
+      stack4 = stack4->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+    printf("|");
+
+    if(stacklen5 > 0)
+    {
+      printf("%-5s",convertCards(*stack5));
+      stack5 = stack5->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+    printf("|");
+    if(stacklen6 > 0)
+    {
+      printf("%-5s",convertCards(*stack6));
+      stack6 = stack6->next;
+    }
+    else
+    {
+      printf("     ");
+    }
+
+    printf("\n");
+    stacklen0--;
+    stacklen1--;
+    stacklen2--;
+    stacklen3--;
+    stacklen4--;
+    stacklen5--;
+    stacklen6--;
+  }
 
 }
